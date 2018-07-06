@@ -7,6 +7,7 @@
   color: #fff;
 }
 .views-main-el-header h1 {
+  float: left;
   font-weight: bold;
   font-size: 1.2vw;
   line-height: 60px;

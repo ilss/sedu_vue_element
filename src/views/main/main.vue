@@ -2,7 +2,7 @@
  * @Author: Liang Liang
  * @Date: 2018-07-06 17:04:16
  * @LastEditors: Liang Liang
- * @LastEditTime: 2018-07-06 18:49:56
+ * @LastEditTime: 2018-07-06 19:56:36
  * @Description: 项目主界面
  */
 <template>
@@ -38,7 +38,6 @@ import SeduLanguageSwitch from '@/components/languageSwitch'
 import Api from '@/util/api'
 
 export default {
-  name: 'Main',
   data () {
     const colorValidator = (rule, value, callback) => {
       if (!value) {
@@ -56,7 +55,10 @@ export default {
       },
       rules: {
         primary: [
-          { validator: colorValidator, trigger: 'blur' }
+          {
+            validator: colorValidator,
+            trigger: 'blur'
+          }
         ]
       },
       originalStyle: '',
@@ -78,13 +80,13 @@ export default {
     getFile (url, isBlob = false) {
       return new Promise((resolve, reject) => {
         const client = new XMLHttpRequest()
+        const urlArr = client.responseURL.split('/')
         client.responseType = isBlob ? 'blob' : ''
         client.onreadystatechange = () => {
           if (client.readyState !== 4) {
             return
           }
           if (client.status === 200) {
-            const urlArr = client.responseURL.split('/')
             resolve({
               data: client.response,
               url: urlArr[urlArr.length - 1]
