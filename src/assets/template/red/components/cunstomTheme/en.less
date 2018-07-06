@@ -1,0 +1,23 @@
+@import "../../public.less";
+.components_cunstomTheme{
+  h1{
+    color:red;
+    background: url(img/en/anniu.png) no-repeat left center;
+  }
+  .root{
+    li{
+      &.classA{
+        background-color: #ccc;
+        color: red;
+      }
+      &:nth-child(2) {
+        color: red;
+      }
+    }
+  }
+  .el-tabel-custom {
+    .el-table__header th {
+      background-color: rgb(238, 93, 100);
+    }
+  }
+}

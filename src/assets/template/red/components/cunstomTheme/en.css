@@ -1,0 +1,14 @@
+.components_cunstomTheme h1 {
+  color: red;
+  background: url(img/en/anniu.png) no-repeat left center;
+}
+.components_cunstomTheme .root li.classA {
+  background-color: #ccc;
+  color: red;
+}
+.components_cunstomTheme .root li:nth-child(2) {
+  color: red;
+}
+.components_cunstomTheme .el-tabel-custom .el-table__header th {
+  background-color: #ee5d64;
+}

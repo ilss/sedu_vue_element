@@ -1,0 +1,36 @@
+.components_cunstomTheme h1 {
+  color: #007ee6;
+}
+.components_cunstomTheme .el-tabel-custom .el-table__header th {
+  color: #fff;
+  background-color: #549ff5;
+}
+.views-main-el-header {
+  background-color: #3b9be9;
+  padding: 0 20px;
+  margin-bottom: 5vh;
+}
+.views-main-el-header h1 {
+  font-weight: bold;
+  font-size: 1.5vw;
+  line-height: 70px;
+}
+.views-main-el-header-el-dropdown {
+  color: red;
+  float: right;
+  line-height: 70px;
+}
+h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}

@@ -1,0 +1,24 @@
+@import "../../public.less";
+.components_cunstomTheme{
+  h1{
+    color:blue;
+    background: url(img/zh/questionbg.png) no-repeat left center;
+  }
+  .root{
+    li{
+      &.classA{
+        background-color: #ccc;
+        color: blue;
+      }
+      &:nth-child(2) {
+        color: blue;
+      }
+    }
+  }
+  .el-tabel-custom {
+    .el-table__header th{
+      color: #FFF;
+      background-color: rgb(238, 93, 100);
+    }
+  }
+}
