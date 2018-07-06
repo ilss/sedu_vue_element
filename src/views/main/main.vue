@@ -2,94 +2,33 @@
  * @Author: Liang Liang
  * @Date: 2018-07-06 17:04:16
  * @LastEditors: Liang Liang
- * @LastEditTime: 2018-07-06 18:13:55
- * @Description:
+ * @LastEditTime: 2018-07-06 18:49:56
+ * @Description: 项目主界面
  */
 <template>
   <el-container>
     <el-header class="views-main-el-header">
-      <h1 style="float:left;">{{$t('views.main.title')}}</h1>
+      <h1>{{$t('views.main.title')}}</h1>
       <!-- 语言切换 -->
-      <sedu-language-switch cname="views-main-el-header-el-dropdown">
-      </sedu-language-switch>
+      <sedu-language-switch cname="views-main-el-header-el-dropdown" />
     </el-header>
 
     <el-main>
       <ul>
-        <li><img :src="_getImage('views/main/','jacket.png')"
+        <li>
+          <img :src="_getImage('views/main/','jacket.png')"
                alt=""
                srcset=""
-               width="200"></li>
-        <li><img :src="_getImage('views/main/','qunzi.png')"
+               width="200">
+        </li>
+        <li>
+          <img :src="_getImage('views/main/','qunzi.png')"
                alt=""
                srcset=""
-               width="200"></li>
-      </ul>
-      <el-switch v-model="value3">
-      </el-switch>
-      <img src=""
-           alt=""
-           srcset="">
-      <ul>
-        <li>
-          <a href="https://vuejs.org"
-             target="_blank">
-            Core Docs
-          </a>
-        </li>
-        <li>
-          <a href="https://forum.vuejs.org"
-             target="_blank">
-            Forum
-          </a>
-        </li>
-        <li>
-          <a href="https://chat.vuejs.org"
-             target="_blank">
-            Community Chat
-          </a>
-        </li>
-        <li>
-          <a href="https://twitter.com/vuejs"
-             target="_blank">
-            Twitter
-          </a>
-        </li>
-        <br>
-        <li>
-          <a href="http://vuejs-templates.github.io/webpack/"
-             target="_blank">
-            Docs for This Template
-          </a>
+               width="200">
         </li>
       </ul>
-      <h2>Ecosystem</h2>
-      <ul>
-        <li>
-          <a href="http://router.vuejs.org/"
-             target="_blank">
-            vue-router
-          </a>
-        </li>
-        <li>
-          <a href="http://vuex.vuejs.org/"
-             target="_blank">
-            vuex
-          </a>
-        </li>
-        <li>
-          <a href="http://vue-loader.vuejs.org/"
-             target="_blank">
-            vue-loader
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/vuejs/awesome-vue"
-             target="_blank">
-            awesome-vue
-          </a>
-        </li>
-      </ul>
+      <el-switch v-model="value3" />
     </el-main>
   </el-container>
 </template>
