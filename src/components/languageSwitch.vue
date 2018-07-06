@@ -2,7 +2,7 @@
  * @Author: Liang Liang
  * @Date: 2018-07-06 17:25:04
  * @LastEditors: Liang Liang
- * @LastEditTime: 2018-07-06 18:14:13
+ * @LastEditTime: 2018-07-06 20:01:18
  * @Description: 语言切换组件
  */
 <template>

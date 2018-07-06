@@ -2,8 +2,8 @@
  * @Author: Liang Liang
  * @Date: 2018-07-06 17:04:24
  * @LastEditors: Liang Liang
- * @LastEditTime: 2018-07-06 18:21:25
- * @Description:
+ * @LastEditTime: 2018-07-06 20:00:58
+ * @Description:  一些全局状态
  */
 import Cookies from 'js-cookie'
 const state = {
