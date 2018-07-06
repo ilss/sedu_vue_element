@@ -1,16 +1,18 @@
+/*
+ * @Author: Liang Liang
+ * @Date: 2018-07-06 17:04:24
+ * @LastEditors: Liang Liang
+ * @LastEditTime: 2018-07-06 17:04:24
+ * @Description:
+ */
 import Cookies from 'js-cookie'
 const state = {
-  isLoadedTemp: false,
-  templates: 'blue',
-  themeColor: '#1f4665',
+  target_template: 2,
   language: Cookies.get('language') || 'zh',
-  showLoading: true,
   skins: [
-    { name: 'blue', template: 'blue', color: '#108EBC' },
-    { name: 'green', template: 'green', color: '#026230' },
-    { name: 'red', template: 'red', color: '#D31313' },
-    { name: 'purple', template: 'blue', color: '#6B16C1' },
-    { name: 'default', template: 'green', color: '#108EBC' }
+    { template: 'blue', color: 'rgb(59, 155, 233)' },
+    { template: 'green', color: '#42b983' },
+    { template: 'red', color: '#d44747' }
   ]
 }
 

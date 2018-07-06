@@ -1,16 +1,15 @@
-@import '../public.less';
 .views-main-el-header {
-  background-color: @THEME_COLOR;
+  background-color: #42b983;
   padding: 0 20px;
   margin-bottom: 1vw;
   height: 20vw;
   overflow: hidden;
   color: #fff;
-  h1 {
-    font-weight: bold;
-    font-size: 1.2vw;
-    line-height: 60px;
-  }
+}
+.views-main-el-header h1 {
+  font-weight: bold;
+  font-size: 1.2vw;
+  line-height: 60px;
 }
 .views-main-el-header-el-dropdown {
   float: right;
@@ -30,7 +29,7 @@ li {
   margin: 0 10px;
 }
 a {
-  color: @THEME_COLOR;
+  color: #42b983;
 }
 .el-main {
   padding: 0 1vw;

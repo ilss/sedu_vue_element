@@ -1,96 +1,101 @@
+/*
+ * @Author: Liang Liang
+ * @Date: 2018-07-06 17:04:16
+ * @LastEditors: Liang Liang
+ * @LastEditTime: 2018-07-06 18:13:55
+ * @Description:
+ */
 <template>
-    <el-container>
-        <el-header class="views-main-el-header">
-            <h1 style="float:left;">{{$t('views.main.title')}}</h1>
-            <!-- 语言切换 -->
-            <el-dropdown trigger="click"
-                         @command="handleSetLanguage"
-                         class="views-main-el-header-el-dropdown">
-                <div>
-                    {{$t('views.main.languageSwitch')}}
-                    <i>{{this.$i18n.locale==='zh'?'中文':'English'}}</i>
-                </div>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="zh"
-                                      :disabled="language==='zh'">中文</el-dropdown-item>
-                    <el-dropdown-item command="en"
-                                      :disabled="language==='en'">English</el-dropdown-item>
-                </el-dropdown-menu>
-            </el-dropdown>
+  <el-container>
+    <el-header class="views-main-el-header">
+      <h1 style="float:left;">{{$t('views.main.title')}}</h1>
+      <!-- 语言切换 -->
+      <sedu-language-switch cname="views-main-el-header-el-dropdown">
+      </sedu-language-switch>
+    </el-header>
 
-        </el-header>
-        <el-container>
-            <h1>{{ msg }}</h1>
-            <h2>{{$t("components.HelloWorld.title")}}</h2>
-            <img src=""
-                 alt=""
-                 srcset="">
-            <ul>
-                <li>
-                    <a href="https://vuejs.org"
-                       target="_blank">
-                        Core Docs
-                    </a>
-                </li>
-                <li>
-                    <a href="https://forum.vuejs.org"
-                       target="_blank">
-                        Forum
-                    </a>
-                </li>
-                <li>
-                    <a href="https://chat.vuejs.org"
-                       target="_blank">
-                        Community Chat
-                    </a>
-                </li>
-                <li>
-                    <a href="https://twitter.com/vuejs"
-                       target="_blank">
-                        Twitter
-                    </a>
-                </li>
-                <br>
-                <li>
-                    <a href="http://vuejs-templates.github.io/webpack/"
-                       target="_blank">
-                        Docs for This Template
-                    </a>
-                </li>
-            </ul>
-            <h2>Ecosystem</h2>
-            <ul>
-                <li>
-                    <a href="http://router.vuejs.org/"
-                       target="_blank">
-                        vue-router
-                    </a>
-                </li>
-                <li>
-                    <a href="http://vuex.vuejs.org/"
-                       target="_blank">
-                        vuex
-                    </a>
-                </li>
-                <li>
-                    <a href="http://vue-loader.vuejs.org/"
-                       target="_blank">
-                        vue-loader
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/vuejs/awesome-vue"
-                       target="_blank">
-                        awesome-vue
-                    </a>
-                </li>
-            </ul>
-        </el-container>
-    </el-container>
+    <el-main>
+      <ul>
+        <li><img :src="_getImage('views/main/','jacket.png')"
+               alt=""
+               srcset=""
+               width="200"></li>
+        <li><img :src="_getImage('views/main/','qunzi.png')"
+               alt=""
+               srcset=""
+               width="200"></li>
+      </ul>
+      <el-switch v-model="value3">
+      </el-switch>
+      <img src=""
+           alt=""
+           srcset="">
+      <ul>
+        <li>
+          <a href="https://vuejs.org"
+             target="_blank">
+            Core Docs
+          </a>
+        </li>
+        <li>
+          <a href="https://forum.vuejs.org"
+             target="_blank">
+            Forum
+          </a>
+        </li>
+        <li>
+          <a href="https://chat.vuejs.org"
+             target="_blank">
+            Community Chat
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/vuejs"
+             target="_blank">
+            Twitter
+          </a>
+        </li>
+        <br>
+        <li>
+          <a href="http://vuejs-templates.github.io/webpack/"
+             target="_blank">
+            Docs for This Template
+          </a>
+        </li>
+      </ul>
+      <h2>Ecosystem</h2>
+      <ul>
+        <li>
+          <a href="http://router.vuejs.org/"
+             target="_blank">
+            vue-router
+          </a>
+        </li>
+        <li>
+          <a href="http://vuex.vuejs.org/"
+             target="_blank">
+            vuex
+          </a>
+        </li>
+        <li>
+          <a href="http://vue-loader.vuejs.org/"
+             target="_blank">
+            vue-loader
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/vuejs/awesome-vue"
+             target="_blank">
+            awesome-vue
+          </a>
+        </li>
+      </ul>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
-import Cookies from 'js-cookie'
+import SeduLanguageSwitch from '@/components/languageSwitch'
 import Api from '@/util/api'
 
 export default {
@@ -106,7 +111,7 @@ export default {
       }
     }
     return {
-      msg: '',
+      value3: true,
       colors: {
         primary: '#1f4665'
       },
@@ -119,8 +124,12 @@ export default {
       styleFiles: []
     }
   },
+  components: {
+    SeduLanguageSwitch
+  },
   created () {
     // 载入皮肤样式
+    this.colors.primary = this.themeColor
     this.getIndexStyle()
     require(`../../assets/template/${this.templates}/index_${this.$i18n.locale}.less`)
   },
@@ -149,21 +158,13 @@ export default {
         client.send()
       })
     },
+
     writeNewStyle () {
       let cssText = this.originalStyle
       Object.keys(this.colors).forEach(key => {
         cssText = cssText.replace(new RegExp('(:|\\s+)' + key, 'g'), '$1' + this.colors[key])
       })
-      //   if (this.originalStylesheetCount === document.styleSheets.length) {
-      //     const style = document.createElement('style')
-      //     style.setAttribute('type', 'text/css')
-      //     style.setAttribute('id', 'element-ui-theme')
-      //     style.innerText = cssText
-      //     document.head.appendChild(style)
-      //   } else {
-      //     document.getElementById('element-ui-theme').innerText = cssText
-      //   }
-      document.getElementById('element-ui-theme').innerText = cssText
+      document.querySelector('#element-ui-theme').innerText = cssText
     },
 
     getStyleTemplate (data) {
@@ -193,15 +194,8 @@ export default {
           this.originalStyle = this.getStyleTemplate(data)
           this.writeNewStyle()
         })
-    },
-    handleSetLanguage (lang) {
-      this.$i18n.locale = lang
-      this.$store.state.language = lang
-      Cookies.set('language', lang, {
-        expires: 7
-      }) // 创建一个从现在起7天过期的cookie，并在整个站点上有效
-      this.$store.dispatch('setLanguage', lang)
     }
+
   }
 }
 </script>

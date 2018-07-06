@@ -1,3 +1,10 @@
+/*
+ * @Author: Liang Liang
+ * @Date: 2018-07-06 17:04:31
+ * @LastEditors: Liang Liang
+ * @LastEditTime: 2018-07-06 17:28:54
+ * @Description:
+ */
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -5,7 +12,6 @@ import i18n from './lang' // Internationalization
 import store from './vuex/store'
 import { mapGetters } from 'vuex'
 import ElementUI from 'element-ui'
-// import { getCookie, setCookie, delCookie } from './util/common' // 引入cookie方法，在组件当中使用
 
 Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示
 Vue.use(i18n)
@@ -19,14 +25,10 @@ Vue.mixin({
       // 添加到全局计算属性中
       'themeColor',
       'templates',
-      'language',
-      'showLoading'
+      'language'
     ])
   },
   methods: {
-    // _getLang () {
-    //   return this.$store.state.language
-    // },
     _templatesMu (val = 'red') {
       this.$store.state.templates = val
     },
@@ -35,10 +37,10 @@ Vue.mixin({
         this.templates
       }/${filepath}/${filename}/${this.$i18n.locale}.less`)
     },
-    _getImage (filepath = '', filename = '') {
+    _getImage (filepath = '', filename = 'noimg.gif') {
       return require(`./assets/template/${
         this.templates
-      }/home/img/${filepath}/${filename}`)
+      }/${filepath}${filename}`)
     }
   }
 })
