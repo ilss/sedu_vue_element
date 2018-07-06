@@ -1,6 +1,3 @@
-<p align="center">
-  <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2219311940,1340810285&fm=58&s=4982FE1A94606D0952D589D001004033&bpow=300&bpoh=150">
-</p>
 <h1 align="center">VUE 项目通用模板</h1>
 
 <p align="center">
@@ -51,3 +48,7 @@
 npm install
 npm run dev
 ```
+
+<p align="center">
+  <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2219311940,1340810285&fm=58&s=4982FE1A94606D0952D589D001004033&bpow=300&bpoh=150">
+</p>
