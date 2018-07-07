@@ -2,7 +2,7 @@
  * @Author: Liang Liang
  * @Date: 2018-07-06 17:04:16
  * @LastEditors: Liang Liang
- * @LastEditTime: 2018-07-06 19:56:36
+ * @LastEditTime: 2018-07-07 13:11:53
  * @Description: 项目主界面
  */
 <template>
@@ -10,19 +10,20 @@
     <el-header class="views-main-el-header">
       <h1>{{$t('views.main.title')}}</h1>
       <!-- 语言切换 -->
-      <sedu-language-switch cname="views-main-el-header-el-dropdown" />
+      <sedu-language-switch cname="views-main-el-header-el-dropdown"
+                            :my18n="this.$i18n" />
     </el-header>
 
     <el-main>
       <ul>
         <li>
-          <img :src="_getImage('views/main/','jacket.png')"
+          <img :src="mixinGetImage('views/main/','jacket.png')"
                alt=""
                srcset=""
                width="200">
         </li>
         <li>
-          <img :src="_getImage('views/main/','qunzi.png')"
+          <img :src="mixinGetImage('views/main/','qunzi.png')"
                alt=""
                srcset=""
                width="200">
@@ -35,7 +36,6 @@
 
 <script>
 import SeduLanguageSwitch from '@/components/languageSwitch'
-import Api from '@/util/api'
 
 export default {
   data () {
@@ -70,9 +70,9 @@ export default {
   },
   created () {
     // 载入皮肤样式
-    this.colors.primary = this.themeColor
+    this.colors.primary = this.STORE_THEME_COLOR
     this.getIndexStyle()
-    require(`../../assets/template/${this.templates}/index_${this.$i18n.locale}.less`)
+    this.mixinGetLess('', `index_${this.$i18n.locale}`)
   },
   mounted () {
   },
@@ -130,7 +130,7 @@ export default {
     },
 
     getIndexStyle () {
-      this.getFile(`${Api.ELEMENTUI_CSS_LINK}index.css`)
+      this.getFile('//unpkg.com/element-ui/lib/theme-chalk/index.css')
         .then(({ data }) => {
           this.originalStyle = this.getStyleTemplate(data)
           this.writeNewStyle()
