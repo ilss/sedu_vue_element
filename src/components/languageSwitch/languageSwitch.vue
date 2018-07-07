@@ -2,24 +2,24 @@
  * @Author: Liang Liang
  * @Date: 2018-07-06 17:25:04
  * @LastEditors: Liang Liang
- * @LastEditTime: 2018-07-07 13:14:23
+ * @LastEditTime: 2018-07-07 16:06:32
  * @Description: 语言切换组件
  */
 <template>
   <!-- 语言切换 -->
-  <el-dropdown @command="handleSetLanguage"
-               :class="className"
+  <el-dropdown @command="_handleSetLanguage"
+               :class="cName"
                :style="myStyle">
     <span class="el-dropdown-link">
-      {{this.$i18n.messages[STORE_LANGUAGE].label}}
+      {{my18n.messages[STORE_LANGUAGE].label}}
       <i class="el-icon-arrow-down el-icon--right"></i>
     </span>
-    <el-dropdown-menu slot="dropdown"
-                      style="width:90px">
-      <el-dropdown-item v-for="(item,index) of this.$i18n.messages"
+    <el-dropdown-menu slot="dropdown">
+      <el-dropdown-item v-for="(item,index) of my18n.messages"
                         :key="index"
                         :command="item.type"
-                        :disabled="STORE_LANGUAGE===item.type">{{item.label}}</el-dropdown-item>
+                        :disabled="STORE_LANGUAGE===item.type"
+                        style="display:block">{{item.label}}</el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
 </template>
@@ -38,7 +38,7 @@ export default {
     }
   },
   props: {
-    className: {
+    cName: {
       type: String,
       default: ''
     },
@@ -46,14 +46,17 @@ export default {
       type: String,
       default: ''
     },
+    // i18n对象
     my18n: {
       type: Object,
       required: true
     },
+    // cookies 存取的key
     cookies: {
       type: String,
       default: null
     },
+    // cookies 时效
     expires: {
       type: Number,
       default: null
@@ -85,28 +88,28 @@ export default {
       }
     }
 
-    const lang = this.getSavedLanguage()
+    const lang = this._getSavedLanguage()
     if (lang) {
       this.$store.state.language = lang
       this.my18n.locale = lang
     }
   },
   methods: {
-    getSavedLanguage () {
+    _getSavedLanguage () {
       return Cookies.get(this.option.cookies.key)
     },
-    setSavedLanguage () {
+    _setSavedLanguage () {
       Cookies.set(this.option.cookies.key, this.my18n.locale, {
         expires: this.option.cookies.expires
       })
     },
-    initLanguage (lang) {
+    _init (lang) {
       this.my18n.locale = lang
       this.$store.state.language = lang
     },
-    handleSetLanguage (lang) {
-      this.initLanguage(lang)
-      this.setSavedLanguage()
+    _handleSetLanguage (lang) {
+      this._init(lang)
+      this._setSavedLanguage()
     }
   }
 }

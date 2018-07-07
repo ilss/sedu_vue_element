@@ -2,7 +2,7 @@
  * @Author: Liang Liang
  * @Date: 2018-07-06 17:04:16
  * @LastEditors: Liang Liang
- * @LastEditTime: 2018-07-07 13:11:53
+ * @LastEditTime: 2018-07-07 16:11:26
  * @Description: 项目主界面
  */
 <template>
@@ -10,7 +10,7 @@
     <el-header class="views-main-el-header">
       <h1>{{$t('views.main.title')}}</h1>
       <!-- 语言切换 -->
-      <sedu-language-switch cname="views-main-el-header-el-dropdown"
+      <sedu-language-switch cName="views-main-el-header-el-dropdown"
                             :my18n="this.$i18n" />
     </el-header>
 
@@ -30,13 +30,15 @@
         </li>
       </ul>
       <el-switch v-model="value3" />
+      <el-date-picker v-model="value1"
+                      type="datetime"
+                      placeholder="">
+      </el-date-picker>
     </el-main>
   </el-container>
 </template>
 
 <script>
-import SeduLanguageSwitch from '@/components/languageSwitch'
-
 export default {
   data () {
     const colorValidator = (rule, value, callback) => {
@@ -49,6 +51,7 @@ export default {
       }
     }
     return {
+      value1: '',
       value3: true,
       colors: {
         primary: '#1f4665'
@@ -66,7 +69,6 @@ export default {
     }
   },
   components: {
-    SeduLanguageSwitch
   },
   created () {
     // 载入皮肤样式
