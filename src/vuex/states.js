@@ -2,7 +2,7 @@
  * @Author: Liang Liang
  * @Date: 2018-07-06 17:04:24
  * @LastEditors: Liang Liang
- * @LastEditTime: 2018-07-07 12:25:53
+ * @LastEditTime: 2018-07-07 17:40:25
  * @Description:  一些全局状态
  */
 const state = {
@@ -12,7 +12,7 @@ const state = {
     { template: 'red', color: '#d44747' }
   ],
   target_template () {
-    return this.skins[2]
+    return this.skins[1]
   }
 }
 
