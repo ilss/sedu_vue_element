@@ -1,16 +1,16 @@
 /*
  * @Author: Liang Liang
- * @Date: 2018-07-06 17:04:16
+ * @Date: 2018-07-09 11:28:12
  * @LastEditors: Liang Liang
- * @LastEditTime: 2018-07-07 16:11:26
- * @Description: 项目主界面
+ * @LastEditTime: 2018-07-09 11:38:08
+ * @Description: 主入口
  */
 <template>
   <el-container>
     <el-header class="views-main-el-header">
       <h1>{{$t('views.main.title')}}</h1>
       <!-- 语言切换 -->
-      <sedu-language-switch cName="views-main-el-header-el-dropdown"
+      <sedu-language-switch cname="views-main-el-header-el-dropdown"
                             :my18n="this.$i18n" />
     </el-header>
 

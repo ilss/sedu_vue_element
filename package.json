@@ -13,7 +13,7 @@
   "dependencies": {
     "element-ui": "^2.4.3",
     "vue": "^2.5.2",
-    "vue-language-switch": "^1.0.6",
+    "vue-language-switch": "^1.0.10",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
@@ -79,5 +79,15 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilss/sedu_vue_element.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilss/sedu_vue_element/issues"
+  },
+  "homepage": "https://github.com/ilss/sedu_vue_element#readme"
 }
