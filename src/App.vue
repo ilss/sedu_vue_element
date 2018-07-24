@@ -6,7 +6,8 @@
  * @Description:
  */
 <template>
-  <div id="app">
+  <div id="app"
+       :class="this.$i18n.locale">
     <router-view/>
   </div>
 </template>

@@ -1,5 +1,6 @@
 'use strict'
 const path = require('path')
+const fs = require('fs')
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
@@ -10,16 +11,40 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
 const env = require('../config/prod.env')
+
+const THEME_PATH = `./src/assets/template/`
+const extractLess = new ExtractTextPlugin('style.[hash].css')
+const styleLoaders = [{ loader: 'css-loader' }, { loader: 'less-loader' }]
+const resolveToThemeStaticPath = fileName => path.resolve(THEME_PATH, fileName)
+const themeFileNameSet = fs.readdirSync(path.resolve(THEME_PATH))
+
+const getThemeName = fileName =>
+  `theme-${path.basename(fileName, path.extname(fileName))}`
+
+const themesExtractLessSet = themeFileNameSet.map(
+  fileName =>
+    new ExtractTextPlugin(
+      `static/css/${getThemeName(fileName)}.[contenthash].css`
+    )
+)
+
+const themeLoaderSet = themeFileNameSet.map((fileName, index) => {
+  if (!env.THEME_FOLDER.includes(fileName)) {
+    return {}
+  }
+  return {
+    test: /\.(less|css)$/,
+    include: resolveToThemeStaticPath(fileName),
+    loader: themesExtractLessSet[index].extract({
+      use: styleLoaders
+    })
+  }
+})
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true,
-      usePostCSS: true
-    })
+    rules: [...themeLoaderSet]
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
@@ -41,15 +66,16 @@ const webpackConfig = merge(baseWebpackConfig, {
       sourceMap: config.build.productionSourceMap,
       parallel: true
     }),
+    ...themesExtractLessSet,
     // extract css into its own file
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css'),
-      // Setting the following option to `false` will not extract CSS from codesplit chunks.
-      // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
-      // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
-      // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
-      allChunks: true,
-    }),
+    // new ExtractTextPlugin({
+    //   filename: utils.assetsPath('css/[name].[contenthash].css'),
+    //   // Setting the following option to `false` will not extract CSS from codesplit chunks.
+    //   // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
+    //   // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
+    //   // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
+    //   allChunks: true
+    // }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
@@ -86,9 +112,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         return (
           module.resource &&
           /\.js$/.test(module.resource) &&
-          module.resource.indexOf(
-            path.join(__dirname, '../node_modules')
-          ) === 0
+          module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
         )
       }
     }),
@@ -127,9 +151,7 @@ if (config.build.productionGzip) {
       asset: '[path].gz[query]',
       algorithm: 'gzip',
       test: new RegExp(
-        '\\.(' +
-        config.build.productionGzipExtensions.join('|') +
-        ')$'
+        '\\.(' + config.build.productionGzipExtensions.join('|') + ')$'
       ),
       threshold: 10240,
       minRatio: 0.8
@@ -138,7 +160,8 @@ if (config.build.productionGzip) {
 }
 
 if (config.build.bundleAnalyzerReport) {
-  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+    .BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
 

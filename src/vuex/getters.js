@@ -5,13 +5,9 @@
  * @LastEditTime: 2018-07-07 17:47:17
  * @Description:
  */
-import state from './states'
+import i18n from '@/lang'
 const getters = {
-  templates () {
-    return state.target_template().template
-  },
-  themeColor () {
-    return state.target_template().color
-  }
+  templates: () => process.env.THEME_FOLDER,
+  language: () => i18n.locale
 }
 export default getters

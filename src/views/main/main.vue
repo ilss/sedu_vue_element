@@ -43,7 +43,9 @@ export default {
   data () {
     const colorValidator = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error(this.langConfig.validate.required[this.lang]))
+        return callback(
+          new Error(this.langConfig.validate.required[this.lang])
+        )
       } else if (!/^#[\dabcdef]{6}$/i.test(value)) {
         return callback(new Error(this.langConfig.validate.format[this.lang]))
       } else {
@@ -68,16 +70,14 @@ export default {
       styleFiles: []
     }
   },
-  components: {
-  },
+  components: {},
   created () {
     // 载入皮肤样式
     this.colors.primary = this.STORE_THEME_COLOR
     this.getIndexStyle()
-    this.mixinGetLess('', `index_${this.$i18n.locale}`)
+    this.mixinGetLess('', `index`)
   },
-  mounted () {
-  },
+  mounted () {},
   methods: {
     getFile (url, isBlob = false) {
       return new Promise((resolve, reject) => {
@@ -105,7 +105,10 @@ export default {
     writeNewStyle () {
       let cssText = this.originalStyle
       Object.keys(this.colors).forEach(key => {
-        cssText = cssText.replace(new RegExp('(:|\\s+)' + key, 'g'), '$1' + this.colors[key])
+        cssText = cssText.replace(
+          new RegExp('(:|\\s+)' + key, 'g'),
+          '$1' + this.colors[key]
+        )
       })
       document.querySelector('#element-ui-theme').innerText = cssText
     },
@@ -132,13 +135,13 @@ export default {
     },
 
     getIndexStyle () {
-      this.getFile('//unpkg.com/element-ui/lib/theme-chalk/index.css')
-        .then(({ data }) => {
+      this.getFile('//unpkg.com/element-ui/lib/theme-chalk/index.css').then(
+        ({ data }) => {
           this.originalStyle = this.getStyleTemplate(data)
           this.writeNewStyle()
-        })
+        }
+      )
     }
-
   }
 }
 </script>
