@@ -14,7 +14,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const env = require('../config/prod.env')
 
 const THEME_PATH = `./src/assets/template/`
-const extractLess = new ExtractTextPlugin('style.[hash].css')
 const styleLoaders = [{ loader: 'css-loader' }, { loader: 'less-loader' }]
 const resolveToThemeStaticPath = fileName => path.resolve(THEME_PATH, fileName)
 const themeFileNameSet = fs.readdirSync(path.resolve(THEME_PATH))
