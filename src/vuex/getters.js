@@ -8,6 +8,15 @@
 import i18n from '@/lang'
 const getters = {
   templates: () => process.env.THEME_FOLDER,
-  language: () => i18n.locale
+  language: () => i18n.locale,
+  themeColor: state => {
+    let color = null
+    state.skins.map(key => {
+      if (process.env.THEME_FOLDER.includes(key.template)) {
+        color = key.color
+      }
+    })
+    return color
+  }
 }
 export default getters

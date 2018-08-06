@@ -10,6 +10,7 @@ export default {
   computed: {
     ...mapGetters({
       // 添加到全局计算属性中
+      STORE_THEME_COLOR: 'themeColor',
       STORE_THEME_LANG: 'language',
       STORE_TEMPLATES: 'templates'
     })

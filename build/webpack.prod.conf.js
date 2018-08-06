@@ -13,10 +13,22 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const env = require('../config/prod.env')
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 const THEME_PATH = `./src/assets/template/`
 const styleLoaders = [{ loader: 'css-loader' }, { loader: 'less-loader' }]
 const resolveToThemeStaticPath = fileName => path.resolve(THEME_PATH, fileName)
-const themeFileNameSet = fs.readdirSync(path.resolve(THEME_PATH))
+
+// const themeFileNameSet = fs.readdirSync(path.resolve(THEME_PATH))
+const themeFileNameSet = [env.THEME_FOLDER.replace(/\"/g, '')]
+const themeImgPath = path.resolve(
+  path.join(THEME_PATH, env.THEME_FOLDER.replace(/\"/g, ''))
+)
+const arrayTheme = fs.readdirSync(path.resolve(THEME_PATH))
+arrayTheme.splice(arrayTheme.findIndex(item => item === themeFileNameSet[0]), 1)
+// console.log(arrayTheme)
 
 const getThemeName = fileName =>
   `theme-${path.basename(fileName, path.extname(fileName))}`
@@ -29,11 +41,8 @@ const themesExtractLessSet = themeFileNameSet.map(
 )
 
 const themeLoaderSet = themeFileNameSet.map((fileName, index) => {
-  if (!env.THEME_FOLDER.includes(fileName)) {
-    return {}
-  }
   return {
-    test: /\.(less|css)$/,
+    test: /\.(less)$/,
     include: resolveToThemeStaticPath(fileName),
     loader: themesExtractLessSet[index].extract({
       use: styleLoaders
@@ -41,9 +50,25 @@ const themeLoaderSet = themeFileNameSet.map((fileName, index) => {
   }
 })
 
+const themeImgPathExclude = [path.join(themeImgPath, './thumb')]
+arrayTheme.forEach(element => {
+  themeImgPathExclude.push(resolve(path.join(THEME_PATH, element)))
+})
+// console.log(themeImgPathExclude)
+
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
-    rules: [...themeLoaderSet]
+    rules: [
+      ...themeLoaderSet,
+      {
+        test: /\.(png|jpe?g|gif|svg)?$/,
+        loader: 'file-loader',
+        query: {
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+        },
+        exclude: themeImgPathExclude
+      }
+    ]
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
@@ -56,16 +81,16 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        compress: {
-          warnings: false
-        }
-      },
-      sourceMap: config.build.productionSourceMap,
-      parallel: true
-    }),
-    ...themesExtractLessSet,
+    // new UglifyJsPlugin({
+    //   uglifyOptions: {
+    //     compress: {
+    //       warnings: false
+    //     }
+    //   },
+    //   sourceMap: config.build.productionSourceMap,
+    //   parallel: true
+    // }),
+
     // extract css into its own file
     // new ExtractTextPlugin({
     //   filename: utils.assetsPath('css/[name].[contenthash].css'),
@@ -75,6 +100,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     //   // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
     //   allChunks: true
     // }),
+    ...themesExtractLessSet,
+
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({

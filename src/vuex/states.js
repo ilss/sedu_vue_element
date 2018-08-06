@@ -5,6 +5,12 @@
  * @LastEditTime: 2018-07-07 17:40:25
  * @Description:  一些全局状态
  */
-const state = {}
+const state = {
+  skins: [
+    { template: 'blue', color: 'rgb(59, 155, 233)' },
+    { template: 'green', color: '#42b983' },
+    { template: 'red', color: '#d44747' }
+  ]
+}
 
 export default state
